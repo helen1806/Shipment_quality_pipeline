@@ -52,10 +52,34 @@
     </ul>
 
 
-    <h3>Choose the column and the operation to be done</h3>
-    <form action="/clean" method="POST">
-        
-    </form>
+    <form method="POST" action="/clean">
+
+    <h3>{{ file }}</h3>
+
+    <!-- Select COLUMN -->
+    <label>Select Column:</label>
+    <select name="column">
+        {% for col in columns %}
+            <option value="{{ col }}">{{ col }}</option>
+        {% endfor %}
+    </select>
+
+    <!-- Select ACTION -->
+    <label>Select Operation:</label>
+    <select name="action">
+        <option value="remove_nulls">Remove Nulls</option>
+        <option value="drop_duplicates">Drop Duplicates</option>
+        <option value="lowercase">Lowercase</option>
+        <option value="uppercase">Uppercase</option>
+        <option value="delete_column">Delete Column</option>
+    </select>
+
+    <!-- Hidden file name -->
+    <input type="hidden" name="filename" value="{{ file }}">
+
+    <button type="submit">Apply</button>
+
+</form>
 {% endfor %}
 
 </div>
