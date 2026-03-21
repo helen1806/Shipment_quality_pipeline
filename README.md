@@ -1,1 +1,0 @@
-# Shipment_quality_pipeline
