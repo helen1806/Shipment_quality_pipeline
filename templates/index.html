@@ -1,26 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Flask App</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ETL — Data Cleaning Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../static/style.css" />
 </head>
 <body>
 
-    <h1>Welcome to My Flask App 🚀</h1>
-    <p>This is your homepage.</p>
+<div class="container">
 
-    <!-- Example button -->
-    <a href="/about">
-        <button>Go to About Page</button>
-    </a>
+    <h1>Upload CSV file or browse CSV file</h1>
 
-    <!-- Example form -->
-    <h2>Enter Your Name</h2>
-    <form action="/submit" method="POST">
-        <input type="text" name="username" placeholder="Enter your name">
-        <button type="submit">Submit</button>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        
+      
+        <div id="drop-area" style="border: 2px dashed #aaa; padding: 20px; text-align: center;">
+            <p>Drag & Drop your CSV here</p>
+            <p>or</p>
+            
+           
+            <input type="file" name="file" accept=".csv" required>
+        </div>
+
+        <br>
+        <button type="submit">Upload</button>
+
     </form>
 
+</div>
+
+
 </body>
-</html>
