@@ -10,6 +10,7 @@
 </head>
 <body>
 
+    <section>
 <div class="container">
 
     <h1>Upload CSV file or browse CSV file</h1>
@@ -22,7 +23,7 @@
             <p>or</p>
             
            
-            <input type="file" name="file" accept=".csv" required>
+            <input type="file" name="file" accept=".csv" multiple required>
         </div>
 
         <br>
@@ -32,5 +33,32 @@
 
 </div>
 
+</section>
 
+{% if column_section %}
+<section >
+<div class="column-section">
+    
+    <h2>Cleaning Phase</h2>
+    <h2>View columns for each file</h2>
+    {% for file, columns in file_columns.items() %}
+
+    <h3>{{ file }}</h3>
+
+    <ul>
+        {% for col in columns %}
+            <li>{{ col }}</li>
+        {% endfor %}
+    </ul>
+
+
+    <h3>Choose the column and the operation to be done</h3>
+    <form action="/clean" method="POST">
+        
+    </form>
+{% endfor %}
+
+</div>
+</section>
+{% endif %}
 </body>
