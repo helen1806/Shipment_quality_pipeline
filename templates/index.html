@@ -5,84 +5,105 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ETL — Data Cleaning Studio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../static/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+ <script src="{{ url_for('static', filename='script.js') }}"></script>
 </head>
 <body>
 
-    <section>
-<div class="container">
+<nav>
+  <span class="nav-brand">⬡ ETL Studio</span>
+  <span class="nav-badge">Cleaning Phase</span>
+</nav>
 
-    <h1>Upload CSV file or browse CSV file</h1>
+<div class="hero">
+  <div class="hero-tag">CSV Data Pipeline</div>
+  <h1>Data <span>Cleaning</span> Studio</h1>
+  <p>Upload your CSV files and apply cleaning operations column by column.</p>
+</div>
 
-    <form action="/upload" method="POST" enctype="multipart/form-data">
-        
-      
-        <div id="drop-area" style="border: 2px dashed #aaa; padding: 20px; text-align: center;">
-            <p>Drag & Drop your CSV here</p>
-            <p>or</p>
-            
-           
-            <input type="file" name="file" accept=".csv" multiple required>
+<!-- PHASE 1: UPLOAD -->
+<div class="upload-wrap">
+  <div class="upload-card">
+    <form action="/upload" method="POST" enctype="multipart/form-data" id="upload-form">
+      <div id="drop-area">
+        <div class="drop-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
         </div>
-
-        <br>
-        <button type="submit">Upload</button>
-
+        <p><strong>Drop CSV files here</strong></p>
+        <p>or click to browse — multiple files supported</p>
+        <input type="file" name="file" accept=".csv" multiple required id="file-input">
+        
+      </div>
+      <div id="file-name-display"></div>
+      <button type="submit" class="btn-upload">Upload &amp; Extract Columns →</button>
     </form>
-
+  </div>
 </div>
 
-</section>
-
+<!-- PHASE 2: CLEANING -->
 {% if column_section %}
-<section >
-<div class="column-section">
-    
-    <h2>Cleaning Phase</h2>
-    <h2>View columns for each file</h2>
-    {% for file, columns in file_columns.items() %}
+<div class="cleaning-section" id="cleaning">
+  <div class="section-header">
+    <span class="step-badge">Step 2</span>
+    <h2>Select Column &amp; Operation</h2>
+  </div>
 
-    <h3>{{ file }}</h3>
+  {% for file, columns in file_columns.items() %}
+  <div class="file-card">
+    <div class="file-card-header">
+      <div class="file-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+        </svg>
+      </div>
+      <span class="file-name">{{ file }}</span>
+      <span class="col-count">{{ columns|length }} columns</span>
+    </div>
 
-    <ul>
-        {% for col in columns %}
-            <li>{{ col }}</li>
-        {% endfor %}
-    </ul>
+    <div class="col-pills">
+      {% for col in columns %}
+        <span class="col-pill">{{ col }}</span>
+      {% endfor %}
+    </div>
 
+    <form method="POST" action="/clean" class="clean-form">
+      <input type="hidden" name="filename" value="{{ file }}">
 
-    <form method="POST" action="/clean">
-
-    <h3>{{ file }}</h3>
-
-    <!-- Select COLUMN -->
-    <label>Select Column:</label>
-    <select name="column">
-        {% for col in columns %}
+      <div class="form-group">
+        <label>Column</label>
+        <select name="column">
+          {% for col in columns %}
             <option value="{{ col }}">{{ col }}</option>
-        {% endfor %}
-    </select>
+          {% endfor %}
+        </select>
+      </div>
 
-    <!-- Select ACTION -->
-    <label>Select Operation:</label>
-    <select name="action">
-        <option value="remove_nulls">Remove Nulls</option>
-        <option value="drop_duplicates">Drop Duplicates</option>
-        <option value="lowercase">Lowercase</option>
-        <option value="uppercase">Uppercase</option>
-        <option value="delete_column">Delete Column</option>
-    </select>
+      <div class="form-group">
+        <label>Operation</label>
+        <select name="action">
+          <option value="remove_nulls">Remove Nulls</option>
+          <option value="drop_duplicates">Drop Duplicates</option>
+          <option value="lowercase">Lowercase</option>
+          <option value="uppercase">Uppercase</option>
+          <option value="delete_column">Delete Column</option>
+        </select>
+      </div>
 
-    <!-- Hidden file name -->
-    <input type="hidden" name="filename" value="{{ file }}">
-
-    <button type="submit">Apply</button>
-
-</form>
-{% endfor %}
-
+      <button type="submit" class="btn-apply">Apply →</button>
+    </form>
+  </div>
+  {% endfor %}
 </div>
-</section>
 {% endif %}
+
+
 </body>
+</html>
