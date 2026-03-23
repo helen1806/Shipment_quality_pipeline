@@ -8,6 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
  <script src="{{ url_for('static', filename='script.js') }}"></script>
+
 </head>
 <body>
 
@@ -37,7 +38,7 @@
         <p><strong>Drop CSV files here</strong></p>
         <p>or click to browse — multiple files supported</p>
         <input type="file" name="file" accept=".csv" multiple required id="file-input">
-        
+
       </div>
       <div id="file-name-display"></div>
       <button type="submit" class="btn-upload">Upload &amp; Extract Columns →</button>
@@ -48,6 +49,11 @@
 <!-- PHASE 2: CLEANING -->
 {% if column_section %}
 <div class="cleaning-section" id="cleaning">
+  
+  <a href="\editor" target="_blank">View SQL Editor</a>
+
+
+
   <div class="section-header">
     <span class="step-badge">Step 2</span>
     <h2>Select Column &amp; Operation</h2>
@@ -75,6 +81,7 @@
     </div>
 
     <form method="POST" action="/clean" class="clean-form">
+
       <input type="hidden" name="filename" value="{{ file }}">
 
       <div class="form-group">
@@ -98,11 +105,16 @@
       </div>
 
       <button type="submit" class="btn-apply">Apply →</button>
+
+      
+
     </form>
   </div>
   {% endfor %}
 </div>
 {% endif %}
+
+
 
 
 </body>
