@@ -105,6 +105,11 @@ def download(filename):
         download_name=download_name
     )
 
+@app.route('/upload-to-db/<filename>')
+def upload_to_db():
+   
+    return "Uploaded"
+
 
 if __name__ == "__main__":
     app.run(debug=True)
