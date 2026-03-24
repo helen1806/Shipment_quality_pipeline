@@ -247,7 +247,10 @@
       </svg>
       Download CSV
     </a>
-    <a href="/upload-to-db/{{ filename }}" class="btn-download">Upload to Database</a>
+    <form action="/upload-to-db/{{ filename }}" method="POST">
+  <button type="submit" class="btn-download">Upload to Database</button>
+
+</form>
   </div>
 
    
