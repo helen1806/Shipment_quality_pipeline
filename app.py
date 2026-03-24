@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, send_file, session
+from  databaseConnection import insert_user_dataset
 import os
 import io
 import pandas as pd
@@ -105,10 +106,17 @@ def download(filename):
         download_name=download_name
     )
 
-@app.route('/upload-to-db/<filename>')
-def upload_to_db():
-   
+
+@app.route('/upload-to-db/<filename>', methods=['POST'])
+def upload_to_db(filename):
+    insert_user_dataset(filename)
     return "Uploaded"
+
+@app.route('/editor')
+def query():
+    return render_template('editor.html')
+
+
 
 
 if __name__ == "__main__":
