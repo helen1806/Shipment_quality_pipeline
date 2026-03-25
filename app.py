@@ -3,6 +3,12 @@ from  databaseConnection import insert_user_dataset
 import os
 import io
 import pandas as pd
+from flask import request, jsonify
+import psycopg2
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 app.secret_key = 'etl-secret-key'
@@ -118,6 +124,34 @@ def query():
 
 
 
+@app.route('/run-query', methods=['POST'])
+def run_query():
+    data = request.get_json()
+    query = data.get("query")
+
+    conn = psycopg2.connect(os.environ.get("DB_URL"))
+    cur = conn.cursor()
+
+    try:
+        cur.execute(query)
+
+        if cur.description:
+            columns = [desc[0] for desc in cur.description]
+            rows = cur.fetchall()
+            result = [dict(zip(columns, row)) for row in rows]
+            conn.commit()
+            return jsonify({"rows": result})
+        else:
+            conn.commit()
+            return jsonify({"message": "Query executed successfully"})
+
+    except Exception as e:
+        conn.rollback()
+        return jsonify({"error": str(e)}), 400
+
+    finally:
+        cur.close()
+        conn.close()
 
 if __name__ == "__main__":
     app.run(debug=True)
