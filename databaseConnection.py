@@ -26,25 +26,36 @@ def insert_user_dataset(filename):
         "timedelta[ns]": "INTERVAL"
     }
 
+    
+
     column_defs = []
 
     for column in df.columns:
-        pandas_dtype = df[column].dtype
+        pandas_dtype = str(df[column].dtype)  # "int64", "float64", etc.
         postgres_dtype = dtype_mapping.get(pandas_dtype, "TEXT")
         column_defs.append(f'"{column}" {postgres_dtype}')
     
     columns_sql = ", ".join(column_defs)
+    
 
-    table_name = os.path.splitext(filename)[0]
+    table_name1 = os.path.splitext(filename)[0]
+
 
     conn = psycopg2.connect(os.environ.get("DB_URL"))
     cur = conn.cursor()
-
+    
     cur.execute(f"""
-        CREATE TABLE IF NOT EXISTS "{table_name}" (
+        CREATE TABLE IF NOT EXISTS "{table_name1}" (
             {columns_sql}
         )
     """)
+    with open('uploads/' + filename, "r", encoding="utf-8") as f:
+     cur.copy_expert(
+        f'COPY "{table_name1}" FROM STDIN WITH CSV HEADER',
+        f
+    )
+
+   
 
     conn.commit()
     cur.close()
@@ -53,7 +64,7 @@ def insert_user_dataset(filename):
     return (
         supabase.table("user_datasets")
         .insert({
-            "table_name": table_name
+            "table_name": table_name1
         })
         .execute()
     )
