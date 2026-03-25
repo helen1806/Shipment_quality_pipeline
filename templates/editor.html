@@ -1,18 +1,45 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/monaco-editor@0.55.1/min/vs/editor/editor.main.min.css">
 <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.55.1/min/vs/loader.js"></script>
 
-<div id="editor" style="height: 300px;"></div>
 
+
+
+<div id="editor" style="height: 300px;"></div>
 <script>
+  let editor;
+
   require.config({
     paths: { vs: "https://cdn.jsdelivr.net/npm/monaco-editor@0.55.1/min/vs" }
   });
 
   require(["vs/editor/editor.main"], function () {
-    monaco.editor.create(document.getElementById("editor"), {
-     
+    editor = monaco.editor.create(document.getElementById("editor"), {
       language: "sql",
       automaticLayout: true
     });
+  });
+</script>
+
+
+<button id="run-query-btn" type="button">Run Query</button>
+
+<div id="query-result"></div>
+
+<script>
+  document.getElementById("run-query-btn").addEventListener("click", async () => {
+    const query = editor.getValue();
+
+    const response = await fetch("/run-query", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ query: query })
+    });
+
+    const data = await response.json();
+
+    document.getElementById("query-result").innerHTML =
+      "<pre>" + JSON.stringify(data, null, 2) + "</pre>";
   });
 </script>
