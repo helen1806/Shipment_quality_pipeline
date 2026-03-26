@@ -7,6 +7,8 @@ from flask import request, jsonify
 import psycopg2
 import os
 from dotenv import load_dotenv
+from supabase import create_client, Client
+
 
 load_dotenv()
 
@@ -44,7 +46,11 @@ def uploading():
         file_columns=file_columns
     )
 
-
+@app.route('/store-user', methods=['POST'])
+def store_user():
+    data = request.get_json()
+    session["user_id"] = data.get("user_id")
+    
 @app.route('/clean', methods=['POST'])
 def clean():
     filename = request.form.get('filename')
@@ -116,19 +122,20 @@ def download(filename):
 @app.route('/upload-to-db/<filename>', methods=['POST'])
 def upload_to_db(filename):
     insert_user_dataset(filename)
-    return "Uploaded"
+    return "Dataset Uploaded"
+    
+
 
 @app.route('/editor')
 def query():
-    return render_template('editor.html')
 
+
+    return render_template('editor.html')
 
 
 @app.route('/run-query', methods=['POST'])
 def run_query():
-    data = request.get_json()
-    query = data.get("query")
-
+   
     conn = psycopg2.connect(os.environ.get("DB_URL"))
     cur = conn.cursor()
 
@@ -152,6 +159,12 @@ def run_query():
     finally:
         cur.close()
         conn.close()
+
+
+@app.route('/login',methods=['POST'])
+def login():
+    return render_template('login.html')
+
 
 if __name__ == "__main__":
     app.run(debug=True)
