@@ -9,7 +9,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/helen1806/SOFTWARE-AGING-MONITOR">
+  <a href="https://github.com/helen1806/ETL_Studio">
     
   </a>
 
@@ -51,7 +51,6 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Dashboard Screenshot][product-screenshot]]
 
 Data preprocessing is a critical step in machine learning, data warehousing, and business intelligence workflows. Inconsistent or unclean data can significantly impact downstream processes.
 ETL Studio addresses this by providing intuitive tools to clean, transform, and standardize datasets.
@@ -134,7 +133,7 @@ Ensure the following are installed before proceeding:
 
 ---
 
-### Step 1 — Upload Dataset
+### Upload Dataset
 
 1. Open the dashboard
 2. Drag & drop CSV files into the sidebar
@@ -148,7 +147,7 @@ Validation rules:
 
 ---
 
-### Step 2 — Data Profiling
+### Data Profiling
 
 Once uploaded, the system automatically generates:
 - Column data types
@@ -158,7 +157,7 @@ Once uploaded, the system automatically generates:
 
 ---
 
-### Step 3 — Data Transformation
+### Data Transformation
 
 Available operations:
 - Remove nulls
@@ -175,7 +174,7 @@ Features:
 
 ---
 
-### Step 4 — SQL Editor
+### SQL Editor
 
 Run queries directly on your processed data using the built-in SQL editor:
 
@@ -184,7 +183,7 @@ Results are displayed within the preview panel.
 
 ---
 
-### Step 5 — Load to Database
+### Load to Database
 
 Push your cleaned dataset to Supabase:
 - Automatically creates table schema
@@ -193,7 +192,7 @@ Push your cleaned dataset to Supabase:
 
 ---
 
-### Step 6 — Export Data
+### Export Data
 
 Download your processed dataset in:
 - CSV format
@@ -201,7 +200,7 @@ Download your processed dataset in:
 
 ---
 
-### Step 7 — Dataset Management
+### Dataset Management
 
 - Sidebar shows all uploaded datasets
 - Switch between datasets
@@ -217,6 +216,9 @@ Download your processed dataset in:
 <!-- Future Enhancements-->
 ## Future Enhancements
 
+- [ ] **User Authentication**
+  -Users can login/signup and each dataset uploaded is linked along with UserID
+
 - [ ] **AI-Powered Data Extraction**
   - Extract structured tables from PDFs and unstructured files
   - Automatically convert them into clean datasets suitable for processing
@@ -230,10 +232,10 @@ Download your processed dataset in:
 - [ ] **Smart Transformation Suggestions**
   - AI analyzes dataset patterns and recommends cleaning steps  
   - Example:
-    - Detect null-heavy columns → suggest fill/drop  
-    - Detect inconsistent formats → suggest normalization  
+    - Detect null-heavy columns ,suggest fill/drop  
+    - Detect inconsistent formats ,suggest normalization  
 
-- [ ] **Context-Aware Query Recommendations**
+- [ ] **Query Recommendations**
   - Suggest queries based on existing database tables  
   - Helps users explore and analyze datasets faster  
 
@@ -271,7 +273,7 @@ If you have a suggestion that would make this better, please fork the repo and c
 
 Helen Sebastian - helenmarys1023@gmail.com
 
-Project Link: [https://github.com/helen1806/SOFTWARE-AGING-MONITOR](https://github.com/helen1806/SOFTWARE-AGING-MONITOR)
+Project Link: [https://github.com/helen1806/ETL-Studio]((https://github.com/helen1806/ETL_Studio.git))
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
