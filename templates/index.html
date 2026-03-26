@@ -8,20 +8,24 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
  <script src="{{ url_for('static', filename='script.js') }}"></script>
+ <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 
 </head>
 <body>
 
-<nav>
-  <span class="nav-brand">⬡ ETL Studio</span>
-  <span class="nav-badge">Cleaning Phase</span>
-</nav>
 
-<div class="hero">
+
+ <div class="hero">
   <div class="hero-tag">CSV Data Pipeline</div>
   <h1>Data <span>Cleaning</span> Studio</h1>
   <p>Upload your CSV files and apply cleaning operations column by column.</p>
 </div>
+
+
+
+
+
 
 <!-- PHASE 1: UPLOAD -->
 <div class="upload-wrap">

@@ -65,6 +65,7 @@ def insert_user_dataset(filename):
         supabase.table("user_datasets")
         .insert({
             "table_name": table_name1
+            
         })
         .execute()
     )
