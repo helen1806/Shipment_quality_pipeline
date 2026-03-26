@@ -77,7 +77,7 @@ ETL Studio addresses this by providing intuitive tools to clean, transform, and 
 
 * ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 * ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
-* psycopg2
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
